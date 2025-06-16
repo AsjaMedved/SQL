@@ -83,22 +83,22 @@ public class DataValidationTest {
         var dashboardPage = verificationPage.validVerify(verificationCode);
     }
 
-//    @Test
-//    @DisplayName("3 неудачных попытки входа, затем успешная")
-//    void threeInvalidLoginsThenValidLogin() {
-//        var validLogin = DataHelper.getTheFirstUser();
-//        var loginPage = new LoginPage();
-//
-//        for (int i = 0; i < 3; i++) {
-//            var invalidAuth = DataHelper.getIncorrectUser(validLogin);
-//            loginPage.registration(invalidAuth.getLogin(), invalidAuth.getPassword());
-//            loginPage.checkErrorIsVisibleNotification();
-//        }
-//
-//        loginPage.dataEntry(validLogin.getLogin(), validLogin.getPassword());
-//        loginPage.checkBlockedUserError();
-//
-//    }
+    @Test
+    @DisplayName("3 неудачных попытки входа, затем успешная")
+    void threeInvalidLoginsThenValidLogin() {
+        var validLogin = DataHelper.getTheFirstUser();
+        var loginPage = new LoginPage();
+
+        for (int i = 0; i < 3; i++) {
+            var invalidAuth = DataHelper.getIncorrectUser(validLogin);
+            loginPage.registration(invalidAuth.getLogin(), invalidAuth.getPassword());
+            loginPage.checkErrorIsVisibleNotification();
+        }
+
+        loginPage.dataEntry(validLogin.getLogin(), validLogin.getPassword());
+        loginPage.checkBlockedUserError();
+
+    }
 }
 
 
