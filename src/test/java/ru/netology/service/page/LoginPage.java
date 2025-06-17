@@ -1,4 +1,4 @@
-package ru.netology.service.Page;
+package ru.netology.service.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
@@ -40,10 +40,8 @@ public class LoginPage {
         campoVuotosPassword.shouldBe(visible).shouldHave(Condition.text("Поле обязательно для заполнения"));
     }
 
-    public void checkErrorIsVisibleNotification() {
-        error.shouldBe(visible).shouldHave(Condition.text("Ошибка! Неверно указан логин или пароль"));
+    public void checkErrorVisibleWithText(String expectedText) {
+        error.shouldBe(visible).shouldHave(Condition.text(expectedText));
     }
-    public void checkBlockedUserError() {
-        error.shouldHave(Condition.text("Пользователь заблокирован"));
-    }
+
 }

@@ -1,4 +1,4 @@
-package ru.netology.service.Page;
+package ru.netology.service.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class VerificationPage {
-private SelenideElement codeVerification = $("[data-test-id='code'] input");
+    private SelenideElement codeVerification = $("[data-test-id='code'] input");
     private SelenideElement continueButton = $$("button").findBy(Condition.text("Продолжить"));
     private SelenideElement errorNotification = $("[data-test-id='error-notification'] .notification__content");
 
@@ -16,8 +16,9 @@ private SelenideElement codeVerification = $("[data-test-id='code'] input");
     public VerificationPage() {
         codeVerification.shouldBe(Condition.visible);
     }
-    public void verificationCode (String code){
-    codeVerification.setValue(code);
+
+    public void verificationCode(String code) {
+        codeVerification.setValue(code);
         continueButton.click();
     }
 

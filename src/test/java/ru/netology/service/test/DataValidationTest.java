@@ -3,7 +3,8 @@ package ru.netology.service.test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import ru.netology.service.Page.LoginPage;
+import ru.netology.service.mode.DBUtils;
+import ru.netology.service.page.LoginPage;
 import ru.netology.service.data.DataHelper;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -58,7 +59,7 @@ public class DataValidationTest {
         var validLogin = DataHelper.getIncorrectUser(originalAuthInfo);
         var loginPage = new LoginPage();
         loginPage.registration(validLogin.getLogin(), validLogin.getPassword());
-        loginPage.checkErrorIsVisibleNotification();
+        loginPage.checkErrorVisibleWithText("Ошибка! Неверно указан логин или пароль");
     }
 
     @Test
@@ -78,9 +79,9 @@ public class DataValidationTest {
         var validLogin = DataHelper.getTheFirstUser();
         var loginPage = new LoginPage();
         var verificationPage = loginPage.dataEntry(validLogin.getLogin(), validLogin.getPassword());
-        String code = DataHelper.getValidVerificationCode();
+        String code = DBUtils.getValidVerificationCode();
         var verificationCode = new DataHelper.VerificationCode(code);
-        var dashboardPage = verificationPage.validVerify(verificationCode);
+        verificationPage.validVerify(verificationCode);
     }
 
     @Test
@@ -92,12 +93,11 @@ public class DataValidationTest {
         for (int i = 0; i < 3; i++) {
             var invalidAuth = DataHelper.getIncorrectUser(validLogin);
             loginPage.registration(invalidAuth.getLogin(), invalidAuth.getPassword());
-            loginPage.checkErrorIsVisibleNotification();
+            loginPage.checkErrorVisibleWithText("Ошибка! Неверно указан логин или пароль");
         }
 
         loginPage.dataEntry(validLogin.getLogin(), validLogin.getPassword());
-        loginPage.checkBlockedUserError();
-
+        loginPage.checkErrorVisibleWithText("Пользователь заблокирован");
     }
 }
 
